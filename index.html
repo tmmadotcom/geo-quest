@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoQuest | Country & Capitals Quiz</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Main container that holds the entire quiz application -->
+  <div class="container">
+    <!--first page user see when open it-->
+    <div class="screen active" id="start-screen">
+      <h1>🌍 GeoQuest</h1>
+      <p>Think you know the world?
+        Challenge yourself with questions about countries, capitals, and flags.</p>
+
+      <hr>
+      <!-- quiz statistics-->
+
+      <div class="stats-grid">
+
+        <div class="stat-card">
+          <div class="stat-icon">🌍</div>
+          <h3>20+</h3>
+          <p>Countries</p>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">🏳️</div>
+          <h3>195+</h3>
+          <p>Flags</p>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">🏛️</div>
+          <h3>195+</h3>
+          <p>Countries</p>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">🏆</div>
+          <h3 id="best-score">0</h3>
+          <p>Best Score</p>
+        </div>
+
+      </div>
+      <button id="start-btn">Start Exploring 🌍 </button>
+    </div>
+
+  </div>
+
+  <!--Main Quiz screen-->
+  <div class="screen" id="quiz-screen">
+
+    <div class="quiz-header">
+      <h2 id="question-text">Question goes here</h2>
+      <div class="quiz-info">
+        <p>
+          Question <span id="current-question">1</span> of <span>20</span>
+        </p>
+        <p id="category">
+          Category:
+          <span>Capital Cities</span>
+        </p>
+        <p>
+          Score: <span id="score">0</span>
+        </p>
+      </div>
+    </div>
+
+    <div id="answer-containers" class="answers-container">
+      <!-- Answers will be dynamically inserted here -->
+
+    </div>
+    <!-- progress bar -->
+    <div class="progress-bar">
+      <div id="progress" class="progress"></div>
+    </div>
+  </div>
+  <!-- result screen -->
+  <div id="result-screen" class="screen">
+    <h1>🌍 Expedition Complete!</h1>
+    <div class="result-info">
+      <p>You scored <span id="final-score">0</span> out of <span id="max-score">20</span></p>
+
+      <div id="result-message">Excellent Explorer!</div>
+    </div>
+    <button id="restart-btn">Restart Quiz</button>
+  </div>
+
+
+  <script src="script.js"></script>
+</body>
+
+</html>
