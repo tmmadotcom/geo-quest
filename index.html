@@ -1,102 +1,130 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GeoQuest | Country & Capitals Quiz</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="theme-color" content="#edf3ff">
+  <title>GeoQuest | World Geography</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <!-- Main container that holds the entire quiz application -->
-  <div class="container">
-    <!--first page user see when open it-->
-    <div class="screen active" id="start-screen">
-      <h1>🌍 GeoQuest</h1>
-      <p>Think you know the world?
-        Challenge yourself with questions about countries, capitals, and flags.</p>
-
-      <hr>
-      <!-- quiz statistics-->
-
-      <div class="stats-grid">
-
-        <div class="stat-card">
-          <div class="stat-icon">🌍</div>
-          <h3>20+</h3>
-          <p>Countries</p>
+  <div class="app-shell">
+    <header class="app-header"><button id="brand-home" class="brand" type="button"><b>✦</b> GeoQuest</button><button
+        id="theme-toggle" class="theme-toggle" type="button"><span id="theme-icon">☾</span><span
+          id="theme-label">Dark</span></button></header>
+    <main class="container">
+      <section class="screen active" id="start-screen">
+        <div class="hero">
+          <div class="globe" aria-hidden="true"><i></i><i></i><span>🌍</span></div>
+          <p class="eyebrow">World geography game</p>
+          <h1>Explore the world. <em> One answer at a time.</em></h1>
+          <p>Learn country capitals and flags in quick, focused rounds.</p>
         </div>
-
-        <div class="stat-card">
-          <div class="stat-icon">🏳️</div>
-          <h3>195+</h3>
-          <p>Flags</p>
+        <div class="start-grid">
+          <article class="world-card"><span>World database</span><strong>195<em>+</em></strong>
+            <p>Countries to explore</p><small>Capitals · Flags</small>
+          </article>
+          <article class="best-card"><b>✦</b>
+            <div><span>Personal best</span><strong id="best-score">0</strong>
+              <p>Highest points earned</p>
+            </div>
+          </article>
         </div>
+        <form id="game-settings" class="settings">
+          <div class="settings-title">
+            <div>
+              <p class="eyebrow">Set your route</p>
+              <h2>Build a 5-question round</h2>
+            </div><b>5 questions</b>
+          </div>
+          <div class="setting-inputs"><label>Difficulty<select id="difficulty">
+                <option value="easy">Easy · 1 point</option>
+                <option value="medium">Medium · 2 points</option>
+                <option value="hard">Hard · 3 points</option>
+              </select></label><label>Quiz mode<select id="quiz-mode">
+                <option value="mixed">Mixed · Capitals + Flags</option>
+                <option value="capitals">Capitals only</option>
+                <option value="flags">Flags only</option>
+              </select></label></div>
+          <p class="scoring-note">↗ A correct streak adds +1 bonus point for every consecutive answer.</p><button
+            id="start-btn" class="primary-btn" type="submit"><span>Start expedition</span><b>→</b></button>
+        </form>
+        <div id="loading-state" class="loading-state" aria-live="polite" hidden><i></i> Preparing your world map…</div>
+        <p id="start-error" role="alert" hidden></p>
+        <div class="steps"><span><b>01</b> Choose a route</span><span><b>02</b> Beat the timer</span><span><b>03</b>
+            Build a streak</span></div>
+      </section>
 
-        <div class="stat-card">
-          <div class="stat-icon">🏛️</div>
-          <h3>195+</h3>
-          <p>Countries</p>
+      <section class="screen" id="quiz-screen" aria-labelledby="question-text">
+        <header class="quiz-head"><button id="quit-btn" class="text-btn" type="button">← Settings</button>
+          <p>Question <span id="current-question">1</span> / <span id="total-questions">5</span></p>
+          <div><small>Score</small><b id="score">0</b></div>
+        </header>
+        <div class="progress-bar">
+          <div id="progress"></div>
         </div>
-
-        <div class="stat-card">
-          <div class="stat-icon">🏆</div>
-          <h3 id="best-score">0</h3>
-          <p>Best Score</p>
+        <div class="quiz-meta"><span id="category">Capital cities</span><span class="streak">✦ <b id="streak">0</b>
+            streak</span></div>
+        <div id="timer-card" class="timer">
+          <div><span>Time remaining</span><b id="timer-text">00:15</b></div>
+          <div><i id="timer-fill"></i></div>
         </div>
+        <article class="question">
+          <div id="flag-display" class="flag-card" hidden><img id="flag-image" alt="Flag to identify" hidden><span
+              id="flag-fallback"></span></div>
+          <h2 id="question-text">Question goes here</h2>
+          <p>Choose the best answer from the options below.</p>
+        </article>
+        <div id="answer-containers" class="answers-container"></div>
+        <div id="answer-feedback" class="feedback" aria-live="polite" hidden>
+          <div><b id="feedback-heading"></b>
+            <p id="feedback-text"></p>
+          </div><span id="feedback-flag"></span>
+        </div>
+        <button id="next-btn" class="primary-btn next-btn" type="button" hidden><span>Next
+            question</span><b>→</b></button>
+      </section>
 
-      </div>
-      <button id="start-btn">Start Exploring 🌍 </button>
-    </div>
-
+      <section class="screen" id="result-screen">
+        <div class="result-hero"><b>✦</b>
+          <p class="eyebrow">Round complete</p>
+          <h1>Expedition complete.</h1>
+          <p id="result-message">Excellent explorer!</p>
+        </div>
+        <div class="result-info">
+          <div><span>Round score</span><strong><output id="final-score">0</output><small> / <output
+                  id="max-score">15</output></small></strong>
+            <p>points earned</p>
+          </div><i></i>
+          <div><strong><output id="correct-count">0</output><small> / <output
+                  id="question-count">5</output></small></strong>
+            <p>correct answers</p>
+          </div>
+        </div>
+        <div id="score-meter" class="score-meter"></div>
+        <div class="result-details"><span id="result-difficulty"></span><span id="result-mode"></span><span>Best streak
+            <b id="best-streak">0</b></span></div><output id="new-best" hidden>New personal best ✦</output>
+        <div class="result-actions"><button id="restart-btn" class="primary-btn" type="button"><span>Play
+              again</span><b>→</b></button><button id="home-btn" class="secondary-btn" type="button">Change
+            settings</button><button id="review-btn" class="secondary-btn" type="button" hidden>Review missed
+            questions</button><button id="share-btn" class="text-btn" type="button">Copy round result</button></div>
+        <p id="share-status" aria-live="polite"></p>
+        <section id="review-panel" class="review-panel" hidden>
+          <div>
+            <h2>Review missed questions</h2><span>Learn it for next time</span>
+          </div>
+          <div id="review-list"></div>
+        </section>
+      </section>
+    </main>
   </div>
-
-  <!--Main Quiz screen-->
-  <div class="screen" id="quiz-screen">
-
-    <div class="quiz-header">
-      <h2 id="question-text">Question goes here</h2>
-      <div class="quiz-info">
-        <p>
-          Question <span id="current-question">1</span> of <span>20</span>
-        </p>
-        <p id="category">
-          Category:
-          <span>Capital Cities</span>
-        </p>
-        <p>
-          Score: <span id="score">0</span>
-        </p>
-      </div>
-    </div>
-
-    <div id="answer-containers" class="answers-container">
-      <!-- Answers will be dynamically inserted here -->
-
-    </div>
-    <!-- progress bar -->
-    <div class="progress-bar">
-      <div id="progress" class="progress"></div>
-    </div>
-  </div>
-  <!-- result screen -->
-  <div id="result-screen" class="screen">
-    <h1>🌍 Expedition Complete!</h1>
-    <div class="result-info">
-      <p>You scored <span id="final-score">0</span> out of <span id="max-score">20</span></p>
-
-      <div id="result-message">Excellent Explorer!</div>
-    </div>
-    <button id="restart-btn">Restart Quiz</button>
-  </div>
-
-
   <script src="script.js"></script>
 </body>
 
